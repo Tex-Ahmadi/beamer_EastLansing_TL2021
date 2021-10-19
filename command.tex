@@ -1,0 +1,192 @@
+% @Tex_Ahmadi    Edit:1400.07.27  test in TL2021
+% M.ahmadi 1395.11.08, copy of:
+% http://qa.parsilatex.com/14100
+% http://qa.parsilatex.com/14148
+%%%%%%%%%%%%%%%%%
+\makeatletter
+\expandafter\let\csname beamer@@tmpop@itemize item@default\endcsname\relax
+\expandafter\let\csname beamer@@tmpop@itemize subitem@default\endcsname\relax
+\expandafter\let\csname beamer@@tmpop@itemize subsubitem@default\endcsname\relax
+
+\defbeamertemplate*{itemize item}{default}{\scriptsize\raise1.25pt\hbox{\donotcoloroutermaths$\blacktriangleleft$}}
+\defbeamertemplate*{itemize subitem}{default}{\tiny\raise1.5pt\hbox{\donotcoloroutermaths$\blacktriangleleft$}}
+\defbeamertemplate*{itemize subsubitem}{default}{\tiny\raise1.5pt\hbox{\donotcoloroutermaths$\blacktriangleleft$}}
+
+\bidi@patchcmd{\@listi}{\leftmargin}{\rightmargin}{}{}
+\let\@listI\@listi
+\bidi@patchcmd{\@listii}{\leftmargin}{\rightmargin}{}{}
+\bidi@patchcmd{\@listiii}{\leftmargin}{\rightmargin}{}{}
+\bidi@patchcmd{\beamer@enum@}{\raggedright}{\raggedleft}{}{}
+\bidi@patchcmd{\@@description}{\raggedright}{\raggedleft}{}{}
+\bidi@patchcmd{\@@description}{\leftmargin}{\rightmargin}{}{}
+
+\renewcommand{\itemize}[1][]{%
+  \beamer@ifempty{#1}{}{\def\beamer@defaultospec{#1}}%
+  \ifnum \@itemdepth >2\relax\@toodeep\else
+    \advance\@itemdepth\@ne
+    \beamer@computepref\@itemdepth% sets \beameritemnestingprefix
+    \usebeamerfont{itemize/enumerate \beameritemnestingprefix body}%
+    \usebeamercolor[fg]{itemize/enumerate \beameritemnestingprefix body}%
+    \usebeamertemplate{itemize/enumerate \beameritemnestingprefix body begin}%
+    \list
+      {\usebeamertemplate{itemize \beameritemnestingprefix item}}
+      {\def\makelabel##1{%
+          {%
+            \hss\llap{{%
+                \usebeamerfont*{itemize \beameritemnestingprefix item}%
+                \usebeamercolor[fg]{itemize \beameritemnestingprefix item}##1}}%
+          }%
+        }%
+      }
+  \fi%
+  \beamer@cramped%
+  \raggedleft%
+  \beamer@firstlineitemizeunskip%
+}
+\makeatother
+\hypersetup{pdfinfo={Author:={M.Ahmadi 1400-07-27}}}
+%%%%%%%%%%%%%%%%%%
+\makeatletter
+\bidi@undef\beamer@@tmpop@footnote@default
+\defbeamertemplate*{footnote}{default}
+{
+  \parindent 1em\noindent%
+  \raggedleft
+  \hbox to 1.8em{\hfil\insertfootnotemark}\insertfootnotetext\par%
+}
+\defbeamertemplate*{LTRfootnote}{default}
+{
+  \parindent 1em\noindent%
+  \raggedright
+  \hbox to 1.8em{\hfil\insertfootnotemark}\latinfont\insertfootnotetext\par%
+}
+\footdir@temp\footdir@ORG@bidi@beamer@framefootnotetext\beamer@framefootnotetext{R}
+\let\@footnotetext=\beamer@framefootnotetext
+\let\@RTLfootnotetext\@footnotetext
+\def\@makeLTRfntext#1{%
+  \def\insertfootnotetext{#1}%
+  \def\insertfootnotemark{\@makefnmark}%
+  \usebeamertemplate***{LTRfootnote}}
+\newcommand<>\beamer@frameLTRfootnotetext[1]{%
+  \global\setbox\beamer@footins\vbox{\@RTLfalse%
+    \hsize\framewidth
+    \textwidth\hsize
+    \columnwidth\hsize
+    \unvbox\beamer@footins
+    \reset@font\footnotesize
+    \@parboxrestore
+    \protected@edef\@currentlabel
+         {\csname p@footnote\endcsname\@thefnmark}%
+    \color@begingroup
+      \uncover#2{\@makeLTRfntext{%
+        \rule\z@\footnotesep\ignorespaces#1\@finalstrut\strutbox}}%
+    \color@endgroup}}
+\footdir@temp\footdir@ORG@bidi@beamer@frameLTRfootnotetext\beamer@frameLTRfootnotetext{L}
+\let\@LTRfootnotetext=\beamer@frameLTRfootnotetext
+\makeatother
+%%%%%%%%%%%%%%%
+\makeatletter
+\long\def\beamer@newenvnoopt#1#2#3#4{%
+  \expandafter\renewcommand\expandafter<\expandafter>\csname#1\endcsname[#2]{#3}%<- here
+  \expandafter\long\expandafter\def\csname end#1\endcsname{#4}%
+}
+\long\def\beamer@newenvopt#1#2[#3]#4#5{%
+  \expandafter\renewcommand\expandafter<\expandafter>\csname#1\endcsname[#2][#3]{#4}%<- here
+  \expandafter\long\expandafter\def\csname end#1\endcsname{#5}%
+}
+\renewcommand<>\beamer@columncom[2][\beamer@colmode]{%
+  \beamer@colclose%
+  \def\beamer@colclose{\end{minipage}\hfill\end{actionenv}\ignorespaces}%
+\begin{actionenv}#3%
+  \setkeys{beamer@col}{#1}%
+  \begin{minipage}[\beamer@colalign]{#2}%
+    \leavevmode\raggedleft\beamer@colheadskip\ignorespaces}
+\renewenvironment<>{columns}[1][]{%
+  \begin{actionenv}#2%
+  \def\beamer@colentrycode{%
+    \hbox to\textwidth\bgroup%
+    \leavevmode%
+    \hskip-\beamer@leftmargin%
+    \nobreak%
+    \beamer@tempdim=\textwidth%
+    \advance\beamer@tempdim by\beamer@leftmargin%
+    \advance\beamer@tempdim by\beamer@rightmargin%
+    \hbox to\beamer@tempdim\bgroup%
+    \hbox{}\hfill\ignorespaces}%
+  \def\beamer@colexitcode{\egroup%
+    \nobreak%
+    \hskip-\beamer@rightmargin\egroup}%
+  \ifbeamer@centered\setkeys{beamer@col}{c}\else\setkeys{beamer@col}{t}\fi%
+  \setkeys{beamer@col}{#1}%
+  \par%
+  \leavevmode\beamer@colentrycode%
+  \def\beamer@colclose{}\ignorespaces}%
+  {\beamer@colclose\def\beamer@colclose{}\beamer@colexitcode\end{actionenv}}%
+\makeatother
+%%%%%%%%%%%%%%%%%
+\makeatletter
+\expandafter\let\csname beamer@@tmpop@section in toc@ball\endcsname\relax
+\defbeamertemplate{section in toc}{ball}
+{\leavevmode\rightskip=2.75ex%
+  \llap{%
+    \normalsize%
+    \begin{pgfpicture}{-1ex}{-0.7ex}{1ex}{1ex}
+      \pgftext{\beamer@usesphere{section number projected}{tocsphere}}
+      \pgftext{%
+        \usebeamerfont*{section number projected}%
+        \usebeamercolor{section number projected}%
+        \color{fg!90!bg}%
+        \inserttocsectionnumber}
+    \end{pgfpicture}%
+    \kern1.25ex}%
+  \inserttocsection\par
+}
+[action]
+{\setbeamerfont{section number projected}{size=\scriptsize}}
+\expandafter\let\csname beamer@@tmpop@subsection in toc@ball\endcsname\relax
+\defbeamertemplate{subsection in toc}{ball}
+{\leavevmode\rightskip=5ex%
+  \llap{\raise0.1ex\beamer@usesphere{subsection number projected}{bigsphere}\kern1ex}%
+  \inserttocsubsection\par%
+}
+\expandafter\let\csname beamer@@tmpop@subsubsection in toc@ball\endcsname\relax
+\defbeamertemplate{subsubsection in toc}{ball}
+{\leavevmode\normalsize\usebeamerfont{subsection in
+    toc}\rightskip=7ex\usebeamerfont{subsubsection in toc}%
+  \llap{\beamer@usesphere{subsubsection number projected}{bigsphere}\kern0.75ex}%
+  \inserttocsubsubsection\par%
+}
+\setbeamertemplate{sections/subsections in toc}[ball]
+\makeatother
+\defpersianfont\nast[Scale=1.5,ExternalLocation]{IranNastaliq} 
+%+++++++++++++++++++++++++++
+% متلب
+\definecolor{mygreen}{RGB}{28,172,0} 
+\definecolor{mylilas}{RGB}{170,55,241}
+\lstset{language=Matlab,
+    breaklines=true,basicstyle=\ttfamily\scriptsize,
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},
+    showstringspaces=false
+}
+%++++++++++++
+%برای شماره خوردن قضیه،...
+\setbeamertemplate{theorems}[numbered]
+%برای شماره خوردن عنوان جدول و شکل
+\setbeamertemplate{caption}[numbered]
+%محیط های قضیه، تعریف، مثال، لم، نتیجه و.... را با حرف اول کوچک  در فریم ها بنویسید. مثال
+\providetranslation{Theorem}{قضیه}%{\large \bf قضیه}
+\providetranslation{Definition}{تعریف}
+\providetranslation{Example}{مثال}
+\providetranslation{Lemma}{لم}
+\providetranslation{Corollary}{نتیجه}
+\providetranslation{Solution}{پاسخ}
+\providetranslation{Problem}{مسئله}
+\providetranslation{Fact}{حقیقت}
+%
+\newtheorem{proposition}[theorem]{گزاره}
+%++++++++++++++++++++++++++++++ @Tex_Ahmadi
