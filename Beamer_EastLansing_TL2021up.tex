@@ -1,0 +1,324 @@
+% M.ahmadi 1395.11.28   edit: 1400.11.15
+% @Tex_Ahmadi 
+% تست شده با تکلایو 2021
+% دو بار پردازش با زی‌لاتک
+\PassOptionsToPackage{pdfpagemode=FullScreen,hyperfootnotes=false}{hyperref}
+\documentclass[10pt,xcolor=dvipsnames]{beamer}
+
+%\usepackage{amsmath,amssymb,amsfonts} 
+\usepackage{tikz} 
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{ptext}
+
+\usetheme{EastLansing}
+\usefonttheme{serif,professionalfonts}
+%\usecolortheme[named=blue]{structure}
+\setbeamercovered{transparent}
+ %توجه: بسته هایی که نیاز هست قبل از بسته زی‌پرشین نوشته شود.
+\usepackage{xepersian}
+\settextfont{XB Zar}
+\setlatintextfont{Times New Roman}
+%در نسخه اولیه 2021 نیاز هست.
+\ExplSyntaxOn
+\cs_set_eq:NN
+\etex_iffontchar:D
+\tex_iffontchar:D
+\cs_undefine:N \c_one
+\int_const:Nn \c_one { 1 }
+\ExplSyntaxOff
+\setdigitfont{Yas}
+
+\defpersianfont\nas[Scale=1.5]{IranNastaliq}
+\defpersianfont\xb[Scale=1.3]{XB Zar}
+\deflatinfont\tnr[Scale=1.2]{Times New Roman}
+%\linespread{1.2} 
+% دستورات مورد نیاز برای استفاده از کلاس بیمر در command نوشته شده
+\input{command-up}
+\raggedleft
+%%%%%%%%
+\newcommand*{\co}[1]{\nast\textcolor{blue}{#1}}
+%%%%
+\title{یک اسلاید نمونه}
+\subtitle{زیرعنوان اسلاید}
+\author[مجتبیٰ احمدی]{\co{مجتبیٰ احمدی}
+\\[.2cm]
+\textcolor{red}{{\xb استاد راهنما}}:
+\\[.2cm]
+\co{جناب آقای}
+}
+\institute{دانشگاه: پیام‌نو‌ر مشگین شهر}
+\date{\today}
+%\date{28 بهمن 1395}
+%%%%%%%%%%
+\logo{\includegraphics[scale=.02]{logo1.png}}
+\newcommand{\nologo}{\setbeamertemplate{logo}{}}
+
+\begin{document}
+
+{\nologo
+\begin{frame}[plain,noframenumbering]
+%برای عدم نمایش نوار بالایی و پایین در فرم آپشن plain و برای اینکه جزء شماره اسلاید محسوب نشود آپشن فرم noframenumbering قرار داده شده است.
+\centerline{\includegraphics[width=\paperwidth,height=\paperheight]{besm.jpg}}
+\end{frame}}
+%%%%%%%%%%%%%%
+\begin{frame}
+\begin{picture}(0,0)
+\put (0,-20){\centerline{\includegraphics[width=1.3cm]{logo.jpg}}}
+\end{picture}
+\vskip 0.1 in
+\maketitle
+\end{frame}
+%%%%%%%%%%%%%%
+\begin{frame}{فهرست مطالب}
+\tableofcontents
+\end{frame}
+%%%%%%%%%%%%%%%%%%
+\section{قسمتی که در اینجاست}
+\subsection{زیرقسمتی که در اینجاست}
+\subsubsection{زیرزیرقسمتی که در اینجاست}
+
+\begin{frame}
+\frametitle{عنوان}
+\framesubtitle{زیرعنوان}
+\begin{definition}
+این یک تعریف است 
+\begin{align}
+2x - 5y &=  8 \\ 
+3x + 9y &=  -12
+\end{align}
+\begin{itemize}\raggedright
+\item
+ آیتم اوّل
+\item
+ آیتم دوّم
+\end{itemize}
+\ptext[1]
+\begin{itemize}\itemindent=2em
+\begin{LTRitems}
+\item $A=\{1, 2, 3, \dots, 20\}$
+\item $5\in A$
+\end{LTRitems}
+\end{itemize}
+\end{definition}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\ptext[1]
+\begin{enumerate}\itemindent=2em
+\item 
+این یک متن است که در اینجا قرار می‌دهیم.
+\end{enumerate}
+\pause
+
+\begin{itemize}\itemindent=2em
+\item 
+این یک متن است که در اینجا قرار می‌دهیم.
+\end{itemize}
+
+\begin{description}\itemindent=4em
+\item[آزمایش]
+این یک متن است که در اینجا قرار می‌دهیم.
+\end{description}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\footnote{این یک زیرنویس پارسی است.}%
+
+\LTRfootnote{This is a latin footnote.}%
+
+\RTLfootnote{این هم زیرنویس پارسی دیگری است.}%
+
+\footnote{این یک زیرنویس پارسی است.}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%
+\begin{frame}
+\ptext[1]
+\begin{definition}
+این یک تعریف است
+\end{definition}
+\pause
+
+\begin{theorem}
+این یک قضیه است
+\end{theorem}
+\pause
+
+\begin{proof}
+این یک اثبات است.
+\end{proof}
+\pause
+
+\begin{example}
+این یک مثال است
+\end{example}
+\end{frame}
+%++++++++
+\begin{frame}{شمارش محیط‌ها}
+\begin{definition}
+این یک تعریف است
+\begin{figure}
+\centering
+\includegraphics[scale=.02]{logo1.png} 
+\caption{لوگو}
+\end{figure}
+\end{definition}
+\pause
+
+\begin{theorem}
+این یک قضیه است
+\end{theorem}
+\pause
+
+\begin{proof}
+این یک اثبات است.
+\end{proof}
+
+\end{frame}
+% 7
+\begin{frame}
+\begin{example}
+این یک مثال است
+\end{example}
+\begin{corollary}
+متن
+\end{corollary}
+
+\begin{proposition}
+تست
+\end{proposition}
+\begin{lemma}
+متن
+\end{lemma}
+\end{frame}
+%++++++++
+%%%%%%%%%%%%%%%%%%%%%%%
+\section{بخش بعدی}
+\subsection{زیربخش بعدی}
+\subsubsection{زیرزیربخش بعدی}
+\begin{frame}
+\begin{columns} 
+ \column{.5\textwidth}
+ستون شماره ۱
+\begin{latin}
+This is a test as you can see
+\end{latin}
+ \column{.2\textwidth}
+ستون شماره ۲
+\column{0.3\textwidth}
+ستون شماره ۳
+\end{columns}
+
+\begin{block}{فرمول ریاضی}
+\begin{equation}
+\sum_{i=1}^{n} i = \frac{n(n+1)}{2}
+\end{equation}
+\end{block}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{عنوان اسلاید این صفحه  که در اینجا قرار می‌گیرد}
+\begin{example}
+این یک مثال است.
+\end{example}
+
+
+\begin{definition}
+این یک تعریف است.
+\begin{itemize}\raggedright
+\item 1
+\item 2
+\end{itemize}
+\end{definition}
+
+\begin{proof}
+این یک اثبات است که در اینجا نوشته می‌شود و فقط مقدار بیشتر متن و متن که نوشته می‌شود تا بتوانیم به سطر بعدی برویم.
+\end{proof}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{کد متلب}
+\textcolor{red}{توجه}:
+برای نوشتن کد برنامه‌ای نیاز هست که آپشن فرم رو 
+\lr{fragile}
+قرار دهیم.
+\begin{latin}
+\begin{lstlisting}[frame=single,rulecolor=\color{magenta},numbers=left,numberstyle=\tiny]
+%==================================================
+% Author:M.Ahmadi                   date:1394.10.20
+%                 http://matlabp.ir
+%==================================================
+% The numbers 1 to 9, to form a rhombus.
+clc
+n=9;
+for i=1:n
+  for k=n-1:-1:i
+    fprintf(' ');
+  end;
+  for j=1:i
+    fprintf('%d',j);
+  end;
+  for j=i-1:-1:1
+    fprintf('%d',j);
+  end;
+  fprintf('\n');
+end;
+\end{lstlisting}
+\end{latin}
+\end{frame}
+%%%%%%%%%
+\setbeamertemplate{frametitle continuation}{\insertcontinuationcount}
+%آپشن allowframebreaks برای شکستن مراجع قرار داده شده
+\begin{frame}[allowframebreaks]{منابع}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+\begin{latin}
+\begin{thebibliography}{9}
+\bibitem{1}
+Mojtaba Ahmadi.
+ \newblock {The Math books and Examples of \LaTeX in Weblog}.
+ \newblock \texttt{http://ahmadi1386.persianblog.ir/}, 1993/04/15.
+\bibitem{2}
+ Vafa Khalighi.
+ \newblock {The XePersian Package, Persian for \LaTeX2e over \XeTeX}.
+ \newblock \texttt{http://ctan.org/pkg/xepersian}, 2008.
+ \bibitem{3}
+ This is a test for break.  This is a test for break. 1
+\bibitem{4}
+ This is a test for break.  This is a test for break. 2
+ \bibitem{5}
+ This is a test for break.  This is a test for break. 3
+ \bibitem{6}
+ This is a test for break.  This is a test for break. 4
+ \bibitem{7}
+ This is a test for break.  This is a test for break. 5
+\bibitem{8}
+ This is a test for break.  This is a test for break. 6
+ \bibitem{9}
+ This is a test for break.  This is a test for break. 7
+ \bibitem{10}
+ This is a test for break.  This is a test for break. 8
+ \bibitem{11}
+ This is a test for break.  This is a test for break. 9
+ \bibitem{12}
+ This is a test for break.  This is a test for break. 10
+ \bibitem{13}
+ This is a test for break.  This is a test for break. 11
+\end{thebibliography}
+\end{latin}
+
+\end{frame}
+%
+\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{20.jpg} }
+\nologo
+\begin{frame}
+\begin{center}
+\Huge {\nas
+\textcolor{red}{با آرزوی موفقیت}}
+\end{center}
+\end{frame}
+
+\end{document}
